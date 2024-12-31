@@ -82,21 +82,17 @@ assert(replace([0,1,2,3],  3,4) == [0,1,2,4]);
 assert(replace([0,1,2,3],  4,4) == [0,1,2,3]);   
 assert(replace([0,1,2,3],  5,4) == [0,1,2,3]);  
     
-function remove(list, index) = let(last_index = len(list) - 1, b1 = max(0, min(index, last_index)))
+function remove(list, index) = let(last_index = len(list) - 1)
     flatten([
-        b1 > 0  ? [for(i1 = [0 : b1 - 1]) list[i1]] : [],
-        /b1 < last_index ? [for(i2 = [b1+1 : last_index]) list[i2]] : []
+        index <= 0 ? [] : subrange(list, 0, min(index-1, last_index)),
+        index >= last_index ? [] : subrange(list, max(index == 0 ? 1 : 0, index+1), len(list) - 1)
     ]);
         
-echo(remove([0,1,2,3], -1));
 assert(remove([0,1,2,3], -1) == [0,1,2,3]);
-echo(remove([0,1,2,3], 0));
 assert(remove([0,1,2,3],  0) == [1,2,3]);
-echo(remove([0,1,2,3], 1));
 assert(remove([0,1,2,3],  1) == [0,2,3]);    
 assert(remove([0,1,2,3],  2) == [0,1,3]);    
-assert(remove([0,1,2,3],  3) == [0,1,2]);   
-echo(remove([0,1,2,3],  4)); 
+assert(remove([0,1,2,3],  3) == [0,1,2]);
 assert(remove([0,1,2,3],  4) == [0,1,2,3]);   
 assert(remove([0,1,2,3],  5) == [0,1,2,3]);       
 function subrange(list, start_i, end_i) = end_i < start_i ? [] : [ for(i = [start_i : end_i]) list[i] ];
