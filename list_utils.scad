@@ -124,3 +124,13 @@ assert(remove([0,1,2,3],  2) == [0,1,3]);
 assert(remove([0,1,2,3],  3) == [0,1,2]);
 assert(remove([0,1,2,3],  4) == [0,1,2,3]);   
 assert(remove([0,1,2,3],  5) == [0,1,2,3]);     
+
+
+function reverse(list) = [for(i = [len(list) - 1: -1:0]) list[i] ];
+    
+assert(reverse([]) == []);
+assert(reverse([0,1]) == [1,0]);
+
+function for_each(list, func) = [ for(e = list) func(e) ];
+
+function mul(scalar, list) = [ for(e = list) scalar * e ];
